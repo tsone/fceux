@@ -47,6 +47,14 @@ uniform float u_color;
 uniform float u_gamma;
 uniform float u_noiseAmp;
 
+// Matrix is from ApplyDeemphasisBisqwit() in fceux source code (referenced on 2025-03-19):
+//   https://github.com/TASEmulators/fceux/blob/master/src/palette.cpp
+// NOTE: The matrix differs slightly from the standard YIQ-RGB conversion matrix:
+//   1.000,      1.000,      1.000,      # Y
+//   0.9563,     −0.2721,    −1.1070,    # I
+//   0.6210,     −0.6474,    1.7046      # Q
+// Why? Perhaps the Bisqwit matrix is tailored for characteristics of the NES
+// or maybe the destination RGB color space is different.
 const mat3 c_convMat = mat3(
 	1.0,        1.0,        1.0,       // Y
 	0.946882,   -0.274788,  -1.108545, // I
